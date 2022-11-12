@@ -1,6 +1,14 @@
-docker run -d \
-    --name=filezilla \
-    -p 5800:5800 \
-    -v /media/drive1/docker/filezilla:/config:rw \
-    -v /media/drive1:/storage:rw \
-    jlesage/filezilla
+version: '3'
+
+services:
+  portainer:
+    image: jlesage/filezilla:latest
+    container_name: filezilla
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    volumes:
+      - /media/drive1/docker/filezilla:/config:rw
+      - /media/drive1:/storage:rw
+    ports:
+      - 5800:5800
